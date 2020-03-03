@@ -1,0 +1,20 @@
+1.  VARIABLES
+x, y, name, bool = (1, 2.5, 'John', True)
+2.  STRINGS
+s = 'hello world'
+3.4.5. DATA STRUCTURES
+lists           - A collection which is ordered and changeable. Allows duplicate members. [1, 2, 3]
+tuples          - A collection which is ordered and unchangeable. Allows duplicate members. ('Apples', 'Oranges', 'Grapes')
+sets            - A collection which is unordered and unindexed. No duplicate members. {4, 5, 6}
+
+dictionaries    - A collection (of {'key': 'value'} pairs) which is unordered, changeable and indexed. No duplicate members.
+6.  FUNCTIONS
+7.  CONDITIONALS
+8.  LOOPS
+9.  MODULES
+10. VALIDATOR.py = custom module
+11. CLASSES
+12. FILES
+
+
+VSCode extensions: Python, AREPL (realtime output), Kite (contextual help), autoDocstring (generate docstrings to document functions)
