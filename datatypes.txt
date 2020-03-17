@@ -1,0 +1,1005 @@
+print(*values, sep='', end='\n', file=sys.stdout, flush=False)
+
+PEP 8 = Python Enhancement Proposal 8 - Style Guide for Python Code
+
+BASIC DATA TYPES
+--------------------------------------------------------------------------------------------------------------------------------------------
+ASCII 			= 7 bit = 0 - 127 = 128 total character codes (in decimal)
+8-bit ASCII	 	= 8 bit = 0 - 127 + 128 - 255 = 256 total character codes (in decimal)
+Unicode with UTF-8	= 1 byte up to 4 bytes = 1,112,064 characters (half used) = U+xxxx (each x is a hexadecimal digits = 4 bits)
+Unicode			= table with codepoints for characters in hexadecimal
+
+print(0o10) = 8
+print(0x10) = 16
+print(0b10) = 2
+type(0o10) == type(0x10) == type(10) = int	| All integers are <class 'int'> not matter in which base!
+
+print('\141') = a == octal ASCII code of a
+print('\x61') = a == hex ASCII code of a
+
+ord('a') 	= 97 	- convert a character to an integer = decimal ASCII code
+chr(97) 	= a 	- convert a decimal integer to a character
+chr(8364) 	= '€' 	- convert the decimal value of unicode u20AC to a character
+
+chr(int(0xUUUU)) = the character with unicode code point UUUU
+
+ESCAPING
+--------------------------------------------------------------------------------------------------------------------------------------------
+REASONS
+- suppress special interpretation of certain characters within a string
+	\'		Terminates string with single quote opening delimiter	Literal single quote (') character
+	\"		Terminates string with double quote opening delimiter	Literal double quote (") character
+	\newline	Terminates input line	Newline is ignored
+	\\		Introduces escape sequence	Literal backslash (\) character
+- apply special interpretation to characters in a string which would normally be taken literally = escape sequences
+	\a		ASCII Bell (BEL) character
+	\b		ASCII Backspace (BS) character
+	\f		ASCII Formfeed (FF) character
+	\n		ASCII Linefeed (LF) character
+	\N{<name>}	Character from Unicode database with given <name>
+	\r		ASCII Carriage Return (CR) character
+	\t		ASCII Horizontal Tab (TAB) character
+	\uxxxx		Unicode character with 16-bit hex value xxxx
+	\Uxxxxxxxx	Unicode character with 32-bit hex value xxxxxxxx
+	\v		ASCII Vertical Tab (VT) character
+	\ooo		Character with octal value ooo
+	\xhh		Character with hex value hh
+	
+
+e.g.:
+>>> print('This string contains a single quote (') character.')
+SyntaxError: invalid syntax
+>>> print('This string contains a single quote (\') character.')	- works the same for double quotes
+This string contains a single quote (') character.
+
+'string' == "string"
+'''string''' == """string"""	- allows single quotes, double quotes and newlines without escaping
+				- escape sequences will still work and need to be escaped if needed
+
+ 
+BUILT IN FUNCTIONS
+--------------------------------------------------------------------------------------------------------------------------------------------
+Function		Description
+--------------------------------------------------------------------------------------------------------------------------------------------
+abs()			Returns the absolute value of a number
+all()			Returns True if all items in an iterable object are true
+any()			Returns True if any item in an iterable object is true
+ascii()			Returns a readable version of an object. Replaces none-ascii characters with escape character
+bin()			Returns the binary version of a number
+bool()			Returns the boolean value of the specified object
+bytearray()		Returns an array of bytes
+bytes()			Returns a bytes object
+callable()		Returns True if the specified object is callable, otherwise False
+chr()			Returns a character from the specified Unicode code.
+classmethod()		Converts a method into a class method
+compile()		Returns the specified source as an object, ready to be executed
+complex()		Returns a complex number
+delattr()		Deletes the specified attribute (property or method) from the specified object
+dict()			Returns a dictionary (Array)
+dir()			Returns a list of the specified object's properties and methods
+divmod()		Returns the quotient and the remainder when argument1 is divided by argument2
+enumerate()		Takes a collection (e.g. a tuple) and returns it as an enumerate object
+eval()			Evaluates and executes an expression
+exec()			Executes the specified code (or object)
+filter()		Use a filter function to exclude items in an iterable object
+float()			Returns a floating point number
+format()		Formats a specified value
+frozenset()		Returns a frozenset object
+getattr()		Returns the value of the specified attribute (property or method)
+globals()		Returns the current global symbol table as a dictionary
+hasattr()		Returns True if the specified object has the specified attribute (property/method)
+hash()			Returns the hash value of a specified object
+help()			Executes the built-in help system
+hex()			Converts a number into a hexadecimal value
+id()			Returns the id of an object
+input()			Allowing user input
+int()			Returns an integer number
+isinstance()		Returns True if a specified object is an instance of a specified object
+issubclass()		Returns True if a specified class is a subclass of a specified object
+iter()			Returns an iterator object
+len()			Returns the length of an object
+list()			Returns a list
+locals()		Returns an updated dictionary of the current local symbol table
+map()			Returns the specified iterator with the specified function applied to each item
+max()			Returns the largest item in an iterable
+memoryview()		Returns a memory view object
+min()			Returns the smallest item in an iterable
+next()			Returns the next item in an iterable
+object()		Returns a new object
+oct()			Converts a number into an octal
+open()			Opens a file and returns a file object
+ord()			Convert an integer representing the Unicode of the specified character
+pow()			Returns the value of x to the power of y
+print()			Prints to the standard output device
+property()		Gets, sets, deletes a property
+range()			Returns a sequence of numbers, starting from 0 and increments by 1 (by default)
+repr()			Returns a readable version of an object
+reversed()		Returns a reversed iterator
+round()			Rounds a numbers
+set()			Returns a new set object
+setattr()		Sets an attribute (property/method) of an object
+slice()			Returns a slice object
+sorted()		Returns a sorted list
+@staticmethod()		Converts a method into a static method
+str()			Returns a string object
+sum()			Sums the items of an iterator
+super()			Returns an object that represents the parent class
+tuple()			Returns a tuple
+type()			Returns the type of an object
+vars()			Returns the __dict__ property of an object
+zip()			Returns an iterator, from two or more iterators
+
+
+VARIABLES - can't start with a digit; accepted char sequence: [A-Za-z][0-9][_]; support Unicode
+--------------------------------------------------------------------------------------------------------------------------------------------
+m = 300
+n = 300
+id(m) != id(n)
+True
+m is n
+False
+m == n
+True
+
+The interpreter creates objects for the integers in the range [-5, 256] at startup and reuses them
+m = 30
+n = 30
+id(m) = id(n)
+
+PYTHON KEYWORDS
+---------------
+and, as, assert, break, class, continue, def, del, elif, else,
+except, False, finally, for, from, global, if, import, in, is, 
+lambda, None, nonlocal, not, or, pass, raise, return, True, try, 
+while, with, yield
+
+help()
+
+---
+import keyword
+print(keyword.kwlist)
+if keyword.iskeyword(mystring): 
+	print(mystring + ' is a keyword')
+iskeyword('and')
+True
+---
+
+
+
+
+ARITHMETIC OPERATORS
+--------------------------------------------------------------------------------------------------------------------------------------------
+Operation		Result					Meaning
+
+x + y			sum of x and y				Addition
+x - y			difference of x and y			Substraction
+x * y			product of x and y			Multiplication
+x / y			quotient of x and y			Division. The result is always type 'float'
+x // y			floored quotient of x and y		Floor Division. Rounded to the next smallest number.
+x % y			remainder of x / y			Modulo.
+-x			x negated				Unary negation.
++x			x unchanged				Unary positive.
+abs(x)			absolute value of x
+int(x)			x converted to integer
+float(x)		x converted to floating point
+complex(re, im)		complex number; 'im' default to zero.
+c.conjugate()		conjugate of the complex number c
+divmod(x, y)		the pair (x // y, x % y)
+pow(x, y)		x to the power y
+x ** y			x to the power y	
+
+BITWISE OPERATIONS (only make sense for integers)
+--------------------------------------------------------------------------------------------------------------------------------------------
+Operation		Result					Meaning		
+		
+x | y			bitwise OR				1 if either bit is 1, otherwise 0
+x ^ y			bitwise XOR				1 if the bits are different, 0 if they are the same
+x & y			bitwise AND				1 if both bits are 1, otherwise 0
+x << n			x shifted left by n bits
+x >> n			x shifted right by n bits
+~x			bitwise NOT
+
+BOOLEAN OPERATIONS
+--------------------------------------------------------------------------------------------------------------------------------------------
+Operation		Result						Notes
+
+x or y			if x is False then y, else x			short-circuit evaluation: x and y and z stops at first True result
+x and y			if x is False, then x, else y			short-circuit evaluation: x and y and z stops at first False result
+not x			if x is False, then True, else False
+
+short-circuit evaluation is used so that errors or exception are not generated as long as the first condition is met
+
+All the following are considered False when evaluated in Boolean context:
+The boolean value False							bool(False) == False
+Any value that is numerically zero (0, 0.0, 0.0+0.0j)			bool(0) == False
+An empty string								bool('') == False
+An object of a buit-in composite string (list, tuple, dict, set)	bool([]) == False
+The special value 'None'						bool(None) == False
+
+COMPARISONS
+--------------------------------------------------------------------------------------------------------------------------------------------
+Operation		Meaning
+
+<			strictly less than
+<=			less than or equal
+>			stricly greater than
+>=			greater than or equal
+==			equal
+!=			not equal
+is			object identity
+is not			negated object identity
+
+MEMBERSHIP
+-----------
+in
+not in
+
+OPERATOR PRECEDENCE
+--------------------------------------------------------------------------------------------------------------------------------------------
+		Operator					Description
+
+lowest		or						Boolean OR
+		and						Boolean AND
+		not						Boolean NOT
+		==, !=, <, <=, >, >=, is, is not		comparisons, identity
+		|						bitwise OR
+		^						bitwise XOR
+		&						bitwise AND
+		<<, >>						bit shifts
+		+, -						addition, substraction
+		*, /, //, %					multiplication, division, floor division, modulo
+		+x, -x, ~x					unary positive, unary negative, bitwise negation
+highest		**						exponentiation
+
+
+EQUALITY COMPARISON ON FLOATING-POINT VALUES
+---------------------------------------------
+x = 1.1 + 2.2
+x == 3.3
+False
+
+tolerance = 0.0000001 (max 16 digits after .)
+x = 1.1 + 2.2
+abs(x - 3.3) < tolerance
+True
+
+
+
+
+MUTABLE AND IMMUTABLE
+--------------------------------------------------------------------------------------------------------------------------------------------
+Immutable: int, float, bool, string, unicode, tuple
+Mutable: list, dict, set
+
+STRING
+-------
+
+Slice position: 0   1   2   3   4   5   6
+               -6  -5  -4  -3  -2  -1	
+                +---+---+---+---+---+---+
+                | P | y | t | h | o | n |
+                +---+---+---+---+---+---+
+Index position:   0   1   2   3   4   5
+                 -6  -5  -4  -3  -2  -1
+
+
+s = 'foobar'
+s[-len(s)] 	= s[0] 	= first character = 'f'
+s[len(s) - 1] 	= s[-1] = last character  = 'r'
+s[:] == s True
+s[:] is s True
+s[m:n]		= string slicing (from m to n, not including n)
+	s[:m] == s[0:m]
+	s[n:] == s[n:len(s)]
+	s[:m] + s[n:] == s
+	s[::-1] = the reverse of s
+
+s[::-5]		= 'fr' (remember that when the stride is negative, the first index defaults to the end of the string, and the second index to the beginning, rather than the other way around)
+s[len(s)-1:-len(s):-5] == s[::-5]
+
+s = s[:3] + 'x' + s[f:]
+s
+'fooxar'
+
+s = s.replace('b', 'x')
+s
+'fooxar'
+
+print('fuck', "off")
+fuck off
+print('fuck' + "off")
+fuckoff
+
+
+list_enumerate = list(enumerate(s))
+print(list_enumerate)				= prints a list of (index, character) tuples [(0, 'f'), (1, 'o'), (2, 'o'), (3, 'b'), (4, 'a'), (5, 'r')]
+
+
+
+
+
+s.capitalize()
+s.lower()
+s.upper()
+s.swapcase()
+s.title()
+
+
+s.count(<sub>[, <start>[, <end>]])		= returns number of occurences of <sub> beginning with character position <start> up to but not including <end>
+s.find(<sub>[, <start>[, <end>]])		= returns lowest index if found, -1 if not found
+s.index(<sub>[, <start>[, <end>]])		= identical with .find, but raises an exception if <sub> is not found instead of returning -1
+s.rfind(<sub>[, <start>[, <end>]])		= searches the target string starting at the end, returns highest index if found, -1 if not found
+s.rindex(<sub>[, <start>[, <end>]])		= searches the target string starting at the end, returns highest index if found, raises exception if <sub> is not found rather than returning -1
+
+s.endswith(<sub>[, <start>[, <end>]])		= returns True or False
+s.startswith(<sub>[, <start>[, <end>]])		= returns True or False
+
+s.isalnum()					= alphanumeric
+s.isalpha()					= alphabetic
+s.isdigit()				 	= digit
+s.isidentifier()				= s.isidentifier() returns True if s is a valid Python identifier according to the language definition, and False otherwise
+							- returns True for strings matching a Python keyword as well
+						e.g.:	>>> 'foo32'.isidentifier()
+							True
+							>>> '32foo'.isidentifier()
+							False
+							>>> 'foo$32'.isidentifier()
+							False
+							>>> 'and'.isidentifier()
+							True
+
+s.join(<iterable>)				= concatenates strings from an iterable e.g.: ' : '.join(['foo', 'bar', 'baz']) -----> 'foo : bar : baz'
+
+s.split([<separator>, <maxsplit>])		= splits a string in a list of substrings
+						- <separator> specifies the separator to use when splitting the string; by default any whitespace is a separator
+						- <maxsplit> specifies how many splits to do; default value is -1 which is 'all occurences'
+						- s.rsplit - starts from the right
+''.join(s.split()) == s				- split and join are complementary
+
+
+s.strip([<chars>])				= strips characters from the lef and right ends of a string.
+						- equivalent to s.lstrip() and s.rstrip() in succession
+						- without <chars> argument it removes leading and trailing whitespace.
+',,rrttgg..banana..rr'.strip(',.grt') = banana
+
+s.partition(<sep>)				= divides a string based on first occurence of separator; returns three-part tuple: portion of s preceding <sep>, <sep> itself, portion of s following <sep>
+'I could eat bananas all day'.partition('bananas') = ('I could eat ', 'bananas', ' all day')
+
+
+
+Method			Description
+----------------------------------------------------------------------------------------------------------
+capitalize()		Converts the first character to upper case
+casefold()		Converts string into lower case
+center()		Returns a centered string
+count()			Returns the number of times a specified value occurs in a string
+encode()		Returns an encoded version of the string
+endswith()		Returns true if the string ends with the specified value
+expandtabs()		Sets the tab size of the string
+find()			Searches the string for a specified value and returns the position of where it was found
+format()		Formats specified values in a string
+format_map()		Formats specified values in a string
+index()			Searches the string for a specified value and returns the position of where it was found
+isalnum()		Returns True if all characters in the string are alphanumeric
+isalpha()		Returns True if all characters in the string are in the alphabet
+isdecimal()		Returns True if all characters in the string are decimals
+isdigit()		Returns True if all characters in the string are digits
+isidentifier()		Returns True if the string is an identifier
+islower()		Returns True if all characters in the string are lower case
+isnumeric()		Returns True if all characters in the string are numeric
+isprintable()		Returns True if all characters in the string are printable
+isspace()		Returns True if all characters in the string are whitespaces
+istitle()		Returns True if the string follows the rules of a title
+isupper()		Returns True if all characters in the string are upper case
+join()			Joins the elements of an iterable to the end of the string
+ljust()			Returns a left justified version of the string
+lower()			Converts a string into lower case
+lstrip()		Returns a left trim version of the string
+maketrans()		Returns a translation table to be used in translations
+partition()		Returns a tuple where the string is parted into three parts
+replace()		Returns a string where a specified value is replaced with a specified value
+rfind()			Searches the string for a specified value and returns the last position of where it was found
+rindex()		Searches the string for a specified value and returns the last position of where it was found
+rjust()			Returns a right justified version of the string
+rpartition()		Returns a tuple where the string is parted into three parts
+rsplit()		Splits the string at the specified separator, and returns a list
+rstrip()		Returns a right trim version of the string
+split()			Splits the string at the specified separator, and returns a list
+splitlines()		Splits the string at line breaks and returns a list
+startswith()		Returns true if the string starts with the specified value
+strip()			Returns a trimmed version of the string
+swapcase()		Swaps cases, lower case becomes upper case and vice versa
+title()			Converts the first character of each word to upper case
+translate()		Returns a translated string
+upper()			Converts a string into upper case
+zfill()			Fills the string with a specified number of 0 values at the beginning
+
+
+
+
+https://www.w3schools.com/python/python_ref_string.asp
+
+
+bytes OBJECTS
+--------------------------------------------------------------------------------------------------------------------------------------------
+bytes	= immutable sequence of single byte values; each element in a bytes object is a small integer in the range 0 to 255
+	- only ASCII characters are allowed in a 'bytes' literal; any character value greater than 127 must be specified using an appropriate escape sequence
+
+bytes(<s>, <encoding>)	= creates a bytes object from a string; converts string <s> to a bytes object
+bytes(<size>)		= creates a bytes object consisting of null (0x00) bytes
+bytes(<iterable>)	= creates a bytes object from an iterable
+d
+>>> b = bytes('foo.bar', 'utf8')
+>>> b
+b'foo.bar'
+>>> type(b)
+<class 'bytes'>
+
+>>> empty_bytes = bytes(4)
+>>> print(empty_bytes)
+b'\x00\x00\x00\x00'
+>>> print(type((empty_bytes)))
+<class 'bytes'>
+
+>>> data_bytes = bytes(b'\xff\xff')
+>>> print(data_bytes)
+b'\xff\xff'
+
+>>> b = b'foo bar baz'
+>>> b
+b'foo bar baz'
+>>> type(b)
+<class 'bytes'>
+
+
+
+a = 'Andrei'
+b = b'Andrei'
+e = a.encode('ASCII')
+e == b
+True
+d = b.decode('ASCII')
+d == a
+True
+
+
+bytearray OBJECTS
+--------------------------------------------------------------------------------------------------------------------------------------------
+>>> mutable_bytes = bytearray()
+>>> print(mutable_bytes)
+bytearray(b'')
+>>> print(type(mutable_bytes))
+<class 'bytearray'>
+
+>>> mutable_bytes = bytearray(3)
+>>> print(mutable_bytes)
+bytearray(b'\x00\x00\x00')
+
+>>> mutable_bytes = bytearray(b'\xde\xad\xbe\xef')
+>>> print(mutable_bytes)
+bytearray(b'\xde\xad\xbe\xef')
+>>> mutable_bytes[0] = 0
+>>> mutable_bytes.append(255)
+>>> print(mutable_bytes)
+bytearray(b'\x00\xad\xbe\xef\xff')
+>>> print(mutable_bytes[0:2])
+bytearray(b'\x00\xad')
+>>> 
+
+
+
+TABLE OF TRUTH
+--------------------------------------------------------------------------------------------------------------------------------------------
+		Ordered		Indexed		Mutable		Duplicates		Iterable	Elements
+--------------------------------------------------------------------------------------------------------------------------------------------
+Strings		Yes		Yes		No		Yes			Yes		char
+List		Yes		Yes		Yes		Yes			Yes		Any
+Tuple		Yes		Yes		No (*)		Yes			Yes		Any
+Dictionary	Yes(*)		Yes (key)	Yes		Yes (values only)	Yes		Immutable key
+Set		No		No		Yes		No			Yes		Immutable
+Frozen Set	No		No		No		No			Yes		Immutable
+
+
+LIST
+iordered, indexed, can be nested, can contain complex objects, allows duplicate members, mutable (elements can be added, deleted, changed)
+[obj1, obj2, .. , objn]
+
+TUPLE
+dentical to lists except they are inmutable (elements can NOT be added, deleted, or changed)
+HOWEVER: if a tuple element is of a mutable datatype e.g. a list, its nested items CAN be changed.
+(obj1, obj2, .. , objn)
+
+DICTIONARY
+allows duplicate members
+
+SET
+doesn't allow duplicate members
+
+
+
+LIST
+-----
+>>> a = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
+>>> a[:]
+['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
+>>> a[:] is a								!!! Different from string where s[:] is s == True !!!
+False		
+
+INSERT MULTIPLE LIST VALUES - the number of elements inserted does not need to be equal to the number of elements replaced
+---------------------------
+INSERT IN PLACE OF AN ELEMENT			= specify slice [elem:elem+1]
+>>> a = [1, 2, 3]
+>>> a[1:2] = [2.1, 2.2, 2.3]
+>>> a
+[1, 2.1, 2.2, 2.3, 3]  
+
+VS REPLACE ELEMENT
+>>> a = [1, 2, 3]
+>>> a[1] = [2.1, 2.2, 2.3]
+>>> a
+[1, [2.1, 2.2, 2.3], 3]
+
+INSERT WITHOUT REPLACING			= specify slice [elem:elem]
+>>> a = [1, 2, 7, 8]
+>>> a[2:2] = [3, 4, 5, 6]
+>>> a
+[1, 2, 3, 4, 5, 6, 7, 8]
+
+REMOVING ELEMENTS
+a[1:5] = []
+del a[1:5]
+
+a += ['one', 'two']		= append
+a += '12'			= will iterate the string and add individual characters as list items ['one', 'two', '1', '2']
+
+a = ['three', 'four'] + a	= prepend
+
+List methods modify the target list in place vs String methods which return a new string; reason is mutable vs immutable !!!
+
+a.append(<obj>)
+			a = ['a', 'b']
+			a.append([1, 2, 3])
+			a = ['a', 'b', [1, 2, 3])		VS.  a + [1, 2, 3] ---> ['a', 'b', 1, 2, 3]
+a.extend(<iterable>)
+			a = ['a', 'b']
+			a.extend([1, 2, 3])
+			a = ['a', 'b', 1, 2, 3]
+a.extend(<iterable>) behaves the same as the += operator a += [1, 2, 3]
+
+a.insert(<index>, <obj>)
+a.remove(<obj>)
+a.pop(index=-1)
+del a[index]
+
+Method			Description
+------------------------------------------------------------------------
+append()		Adds an element at the end of the list
+clear()			Removes all the elements from the list
+copy()			Returns a copy of the list
+count()			Returns the number of elements with the specified value
+extend()		Add the elements of a list (or any iterable), to the end of the current list
+index()			Returns the index of the first element with the specified value
+insert()		Adds an element at the specified position
+pop()			Removes the element at the specified position
+remove()		Removes the first item with the specified value
+reverse()		Reverses the order of the list
+sort()			Sorts the list
+
+https://www.w3schools.com/python/python_ref_list.asp
+
+TUPLE
+------
+identical to lists except they are inmutable (elements can NOT be added, deleted, or changed)
+HOWEVER: if a tuple element is of a mutable datatype e.g. a list, its nested items CAN be changed.
+(obj1, obj2, .. , objn)
+
+t = ()		= initialize empty tuple
+t = (1, 2)	= define a tuple
+t = (2,)	= define a single element tuple !!!
+
+PACKING / UNPACKING
+-------------------
+t = ('foo', 'bar', 'baz', 'qux')
+(s1, s2, s3, s4) = t
+
+SWAPPING TWO VARIABLES
+----------------------
+>>> a = 'foo'
+>>> b = 'bar'
+>>> a, b
+('foo', 'bar')
+
+>>># Magic time!
+>>> a, b = b, a
+
+>>> a, b
+('bar', 'foo')
+
+DICTIONARY
+----------
+- mutable, dynamic (can grow or shrink), allows duplicate members,can be nested
+
+- keys	- must be of immutable type: int, float, complex, bool, strings, tuples, built-in functions (bin, hex, oct, len, etc.)
+	- duplicates not allowed
+
+- values - no restrictions
+
+Although access to items in a dictionary does not depend on order, Python does guarantee that the order of items in a dictionary is preserved. When displayed, items will appear in the order they were defined, and iteration through the keys will occur in that order as well.
+
+>>> b = {'one': 1, 'two': 2, 'three': 3}
+>>> a = dict(one=1, two=2, three=3)
+>>> d = dict([('two', 2), ('one', 1), ('three', 3)])		== list of (key, value) tuples
+>>> e = dict({'three': 3, 'one': 1, 'two': 2})
+>>> a == b == c == d == e
+True
+
+>>> c = dict(zip(['one', 'two', 'three'], [1, 2, 3]))
+
+
+
+METHODS
+-------
+
+Method				Description
+------------------------------------------------------------------------
+clear()				Removes all the elements from the dictionary
+copy()				Returns a copy of the dictionary
+fromkeys()			Returns a dictionary with the specified keys and value
+get(<key>[, <default>])		Returns the value of the specified key; if key is not found returns None; if key is not found and <default> is specified returns <default>
+items()				Returns a list containing a tuple for each key value pair
+keys()				Returns a list containing the dictionary's keys
+pop(<key>[, <default>])		Removes the element with the specified key and returns its value; if key not found raises KeyError exception or if <default> specified returns <default> instead of exception.
+popitem()			Removes the last inserted key-value pair
+setdefault()			Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
+update(<obj>)			Updates the dictionary with the specified key-value pairs
+values()			Returns a list of all the values in the dictionary
+
+d.pop(<key>) == del d['key']
+
+x in d		= test if x exists as a KEY in d
+
+>>> d1 = {'a': 10, 'b': 20, 'c': 30}
+>>> d2 = {'b': 200, 'd': 400}
+
+>>> d1.update(d2)
+>>> d1
+{'a': 10, 'b': 200, 'c': 30, 'd': 400}
+
+
+
+SET
+---
+- unordered, unique elements (no duplicates), mutable but with immutable elements
+
+x = set() 	= empty set
+y = {}		= empty dictionary
+
+------------------------------------------------
+x = set(<iter>)
+
+>>> x = set(['foo', 'bar', 'baz', 'foo', 'qux'])
+>>> x
+{'qux', 'foo', 'bar', 'baz'}
+
+>>> x = set(('foo', 'bar', 'baz', 'foo', 'qux'))
+>>> x
+{'qux', 'foo', 'bar', 'baz'}
+
+>>> x = set('foobar')
+>>> x
+{'r', 'o', 'b', 'a', 'f'}		= unordered, no duplicates
+>>> 
+------------------------------------------------
+
+x = {<obj>, <obj>, ..., <obj>}
+
+>>> x = {'foo', 'bar', 'baz', 'foo', 'qux'}
+>>> x
+{'qux', 'foo', 'bar', 'baz'}
+
+>>> x = {'q', 'u', 'u', 'x'}
+>>> x
+{'x', 'q', 'u'}
+
+len, in
+------------------------------------------------
+
+>>> x = {'foo', 'bar', 'baz'}
+
+>>> len(x)
+3
+
+>>> 'bar' in x
+True
+>>> 'qux' in x
+False
+
+OPERATORS VS METHODS
+------------------------------------------------
+
+x1 | x2					= OPERATOR = both x1 and x2 need to be sets
+x1.union(x2)				= METHOD   = takes any iterable as an argument, converts it to a set and performs the union
+
+UNION 					= returns a set consisting of all elements in either set
+x1.union(x2[, x3 ...])
+x1 | x2 [| x3 ...]
+
+>>> x1 = {'foo', 'bar', 'baz'}
+>>> x2 = {'baz', 'qux', 'quux'}
+>>> x1 | x2
+{'baz', 'quux', 'qux', 'bar', 'foo'}
+
+
+INTERSECTION 				= returns the set of elements common to both x1 and x2
+x1.intersection(x2[, x3 ...])
+x1 & x2 [& x3 ...]
+
+>>> a = {1, 2, 3, 4}
+>>> b = {2, 3, 4, 5}
+>>> c = {3, 4, 5, 6}
+>>> d = {4, 5, 6, 7}
+
+>>> a.intersection(b, c, d)
+{4}
+
+>>> a & b & c & d
+{4}
+
+
+DIFFERENCE				= returns the set of elements that are in x1 but not in x2; with multiple sets operations are performed from left to right (x1-x2) - x3
+x1.difference(x2[, x3 ...])
+x1 - x2 [- x3 ...]
+
+>>> x1 = {'foo', 'bar', 'baz'}
+>>> x2 = {'baz', 'qux', 'quux'}
+
+>>> x1.difference(x2)
+{'foo', 'bar'}
+
+>>> x1 - x2
+{'foo', 'bar'}
+
+
+SYMMETRIC DIFFERENCE			= returns the set of all elements in either x1 or x2, but not both
+x1.symmetric_difference(x2)
+x1 ^ x2 [^ x3 ...]
+
+>>> x1 = {'foo', 'bar', 'baz'}
+>>> x2 = {'baz', 'qux', 'quux'}
+
+>>> x1.symmetric_difference(x2)
+{'foo', 'qux', 'quux', 'bar'}
+
+>>> x1 ^ x2
+{'foo', 'qux', 'quux', 'bar'}
+
+
+
+Method					Description
+------------------------------------------------------------------------------------------------------------------------
+add()					Adds an element to the set
+clear()					Removes all the elements from the set
+copy()					Returns a copy of the set
+difference()				Returns a set containing the difference between two or more sets
+difference_update()			Removes the items in this set that are also included in another, specified set
+discard()				Remove the specified item; does nothing if <elem> does not exist
+intersection()				Returns a set, that is the intersection of two other sets
+intersection_update()			Removes the items in this set that are not present in other, specified set(s)
+isdisjoint()				Returns whether two sets have a intersection or not
+issubset()				Returns whether another set contains this set or not
+issuperset()				Returns whether this set contains another set or not
+pop()					Removes an element from the set; randomly
+remove()				Removes the specified element; raises exception if <elem> does not exist
+symmetric_difference()			Returns a set with the symmetric differences of two sets
+symmetric_difference_update()		inserts the symmetric differences from this set and another
+union()					Return a set containing the union of sets
+update()				Update the set with the union of this set and others
+
+
+FROZEN SET
+----------
+- is a immutable set
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+CONDITIONALS
+
+IF, ELIF, ELSE
+----------------------
+if <expr>:
+    <statement(s)>
+elif <expr>:
+    <statement(s)>
+elif <expr>:
+    <statement(s)>
+    ...
+else:
+    <statement(s)>
+
+
+CONDITIONAL EXPRESIONS (Ternary Operator)
+------------------------------------------
+<expr1> if <conditional_expr> else <expr2>
+
+>>> raining = False
+>>> print("Let's go to the", 'beach' if not raining else 'library')
+Let's go to the beach
+>>> raining = True
+>>> print("Let's go to the", 'beach' if not raining else 'library')
+Let's go to the library
+
+-------------------------------
+
+>>> if a > b:
+...     m = a
+... else:
+...     m = b
+...
+
+>>> m = a if a > b else m = b
+
+-------------------------------
+
+
+PASS
+-----
+if <expr>:
+    pass
+
+
+WHILE
+-----
+while <expr>:
+    <statement(s)>
+
+
+BREAK AND CONTINUE
+------------------
+ --> while <expr>:
+ |     <statement>
+ |     <statement>
+ |   
+ |     break ---------
+ |                    |
+ |     <statement>    |
+ |     <statement>    |
+ |                    |
+ |---  continue       |
+                      |
+       <statement>    |
+       <statement>    |
+                      |
+     <statement> <-----
+
+
+break		= statement that immediately terminates a loop entirely; program execution proceeds to the first statement following the loop body.
+continue	= statement that immediately terminates the current loop iteration; execution jumps to the top of the loop and the controlling expression is re-evaluated
+
+
+WHILE ELSE
+----------
+while <expr>:
+    <statement(s)>
+else:
+    <additional_statement(s)>
+
+- the else statement will be executed only if the loop terminates "by exhaustion" - that is if the loop iterates until the controlling condition becomes false
+- if the loop is exited by a break statement, the else clause won't be executed
+
+
+INFINITE LOOPS
+--------------
+while True:
+    if <expr1>:  # One condition for loop termination
+        break
+    ...
+    if <expr2>:  # Another termination condition
+        break
+    ...
+    if <expr3>:  # Yet another
+        break
+
+e.g.:
+>>> a = ['foo', 'bar', 'baz']
+>>> while True:
+...     if not a:
+...         break
+...     print(a.pop(-1))
+...
+baz
+bar
+foo
+
+- in cases where there are multiple reasons to end the loop, it is often cleaner to break out from several different locations, rather than try to specify all the termination conditions in the loop header.
+
+
+NESTED while LOOPS
+------------------
+
+if age < 18:
+    if gender == 'M':
+        print('son')
+    else:
+        print('daughter')
+elif age >= 18 and age < 65:
+    if gender == 'M':
+        print('father')
+    else:
+        print('mother')
+else:
+    if gender == 'M':
+        print('grandfather')
+    else:
+        print('grandmother')
+
+
+>>> a = ['foo', 'bar']
+>>> while len(a):
+...     print(a.pop(0))
+...     b = ['baz', 'qux']
+...     while len(b):
+...         print('>', b.pop(0))
+...
+foo
+> baz
+> qux
+bar
+> baz
+> qux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
